@@ -25,10 +25,20 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
+    int buzzer[5] = {0};
+    int sum = 0 ;
+    int index = 0;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
-            // implementar filtro aqui!
+            sum -= buzzer[index];
+            buzzer[index]= data;
+            sum+= buzzer[index];
+
+            index = (index + 1) % 5 ;
+
+            int mm = sum/5 ;
+            printf("Média movel igual a: %d \n",mm);
 
 
 
